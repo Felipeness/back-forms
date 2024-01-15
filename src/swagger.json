@@ -1,0 +1,220 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "API",
+    "description": "API for the application",
+    "termsOfService": "http://example.com/terms/",
+    "contact": {
+      "name": "API Support",
+      "email": "felipecoelho.ness@gmail.com"
+    },
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000/v1",
+      "description": "API teste"
+    },
+    {
+      "url": "https://api.example.com/v1",
+      "description": "API prod"
+    }
+  ],
+  "paths": {
+    "/clientes": {
+      "get": {
+        "summary": "Listar todos os clientes",
+        "description": "Retorna uma lista de todos os clientes",
+        "responses": {
+          "200": {
+            "description": "Lista de clientes",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Cliente"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Adicionar um novo cliente",
+        "description": "Cria um novo cliente na base de dados",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Cliente"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Cliente criado com sucesso"
+          }
+        }
+      }
+    },
+    "/clientes/{id}": {
+      "get": {
+        "summary": "Buscar um cliente específico pelo ID",
+        "description": "Retorna detalhes de um cliente específico",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID do cliente",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Detalhes do cliente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Cliente"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Atualizar um cliente",
+        "description": "Atualiza os dados de um cliente existente",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID do cliente",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Cliente"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Cliente atualizado com sucesso"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Deletar um cliente",
+        "description": "Remove um cliente da base de dados",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID do cliente",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Cliente deletado com sucesso"
+          }
+        }
+      }
+    },
+    "/clientes/calcular-rota": {
+      "get": {
+        "summary": "Calcular Rota Otimizada",
+        "description": "Calcula e retorna a rota otimizada para os clientes.",
+        "responses": {
+          "200": {
+            "description": "Rota otimizada calculada com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "distancia": {
+                      "type": "number",
+                      "description": "Distância total da rota"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/clientes/rotas": {
+      "get": {
+        "summary": "Listar Rotas",
+        "description": "Obtém uma lista de todas as rotas disponíveis para os clientes.",
+        "responses": {
+          "200": {
+            "description": "Lista de rotas obtida com sucesso",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "idRota": {
+                        "type": "integer",
+                        "description": "Identificador único da rota"
+                      },
+                      "nomeRota": {
+                        "type": "string",
+                        "description": "Nome das rotas"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Cliente": {
+        "type": "object",
+        "properties": {
+          "nome": {
+            "type": "string",
+            "example": "Felipe Coelho"
+          },
+          "cpf": {
+            "type": "string",
+            "example": "12345678910"
+          },
+          "email": {
+            "type": "string",
+            "example": "felipe@gmail.com"
+          }
+        }
+      }
+    }
+  }
+}
