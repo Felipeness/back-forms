@@ -6,7 +6,7 @@ interface Cliente {
   coordenadas_y: number;
 }
 
-const addClient = async (client: { nome: string; email: string; telefone: string; }) => {
+const addClient = async (client: { nome: string; email: string; telefone: string; coordenadas_x: number; coordenadas_y: number; }) => {
   // adicionar logo abaixo a chamada da função do model
   const clientCreated = await ClienteModel.addCliente(client);
   return clientCreated;

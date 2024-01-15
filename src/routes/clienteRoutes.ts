@@ -1,18 +1,28 @@
-import express, { Router } from 'express';
+import express from 'express';
 import * as ClienteController from '../controllers/clienteController';
 
 const router = express.Router();
 
-router.get("/", (req, res) => {
-  res.send("Lista de todos os clientes");
-});
+// Rota para listar todos os clientes
+router.get("/clientes", ClienteController.getAllClientes);
 
+// Rota para listar rotas
+router.get("/clientes/rotas", ClienteController.getRotas);
+
+// Rota para calcular a rota otimizada
+router.get('/clientes/calcular-rota', ClienteController.calculateRouteOptimization);
+
+// Rota para buscar um cliente específico pelo ID
+router.get('/clientes/:id', ClienteController.getCliente);
+
+// Rota para atualizar um cliente específico pelo ID
+router.put('/clientes/:id', ClienteController.updateCliente);
+
+// Rota para adicionar um novo cliente
 router.post('/clientes', ClienteController.addCliente);
 
-router.post("/", (req, res) => {
-  res.send("Adicionar um novo cliente");
-});
+// Rota para deletar um cliente
+router.delete('/clientes/:id', ClienteController.deleteCliente);
 
-router.put('/clientes/:id', ClienteController.updateCliente);
 
 export default router;

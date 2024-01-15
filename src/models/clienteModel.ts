@@ -7,9 +7,12 @@ export const getAllClientes = async () => {
   return res.rows;
 };
 
-// Função pra adicionar um cliente
-export const addCliente = async (cliente: { nome: string; email: string; telefone: string; }) => {
-  const res = await db.query('INSERT INTO clientes (nome, email, telefone) VALUES ($1, $2, $3) RETURNING *', [cliente.nome, cliente.email, cliente.telefone]);
+// Função para adicionar um cliente, incluindo coordenadas X e Y
+export const addCliente = async (cliente: { nome: string; email: string; telefone: string; coordenadas_x: number; coordenadas_y: number; }) => {
+  const res = await db.query(
+    'INSERT INTO clientes (nome, email, telefone, coordenadas_x, coordenadas_y) VALUES ($1, $2, $3, $4, $5) RETURNING *',
+    [cliente.nome, cliente.email, cliente.telefone, cliente.coordenadas_x, cliente.coordenadas_y]
+  );
   return res.rows[0];
 };
 

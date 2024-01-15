@@ -1,7 +1,7 @@
 import express, { Request, Response } from "express";
 import { body, validationResult, param } from "express-validator";
 import * as ClienteModel from "../models/clienteModel";
-import * as ClienteService from "../service/clienteservice";
+import * as ClienteService from "../service/clientservice";
 
 
 const router = express.Router();
@@ -162,3 +162,21 @@ export const getCliente = async (req: Request, res: Response) => {
     }
   }
 };
+
+// Controlador para buscar rota de clientes
+export const getRotas = async (req: Request, res: Response) => {
+  try {
+    const clientes = await ClienteModel.getAllClientesCoordinates();
+    res.status(200).json(clientes);
+  } catch (error) {
+    if (error instanceof Error) {
+      res.status(500).send(error.message);
+    } else {
+      res.status(500).send("Erro desconhecido");
+    }
+  }
+};
+
+export function calculateRouteOptimization(arg0: string, calculateRouteOptimization: any) {
+  throw new Error('Function not implemented.');
+}
