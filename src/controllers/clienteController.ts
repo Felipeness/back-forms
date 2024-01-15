@@ -1,6 +1,24 @@
-import { Request, Response } from "express";
+import express, { Request, Response } from "express";
 import { body, validationResult, param } from "express-validator";
 import * as ClienteModel from "../models/clienteModel";
+import * as ClienteService from "../service/clienteservice";
+
+
+const router = express.Router();
+
+router.get("/calcularRota", async (req, res) => {
+  try {
+    const rota = await ClienteService.calculateRouteOptimization();
+    res.json(rota);
+  } catch (error) {
+    if (error instanceof Error) {
+      res.status(500).send(error.message);
+    } else {
+      res.status(500).send("Erro desconhecido");
+    }
+  }
+});
+
 
 // Validações para adicionar um cliente
 const clienteValidations = [

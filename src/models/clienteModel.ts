@@ -60,3 +60,10 @@ export const getClientePorId = async (id: number) => {
   const res = await db.query('SELECT * FROM clientes WHERE id = $1', [id]);
   return res.rows[0];
 };
+
+// Função para pegar rota de clientes
+export const getAllClientesCoordinates = async () => {
+  const query = 'SELECT id, coordenada_x, coordenada_y FROM clientes';
+  const result = await db.query(query);
+  return result.rows;
+};
