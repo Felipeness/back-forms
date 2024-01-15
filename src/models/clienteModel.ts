@@ -1,20 +1,21 @@
-import { query } from '../database/database';
+import { db } from '../database/database';
+
 
 // Função pra pegar todos os clientes
 export const getAllClientes = async () => {
-  const res = await query('SELECT * FROM clientes', []);
+  const res = await db.query('SELECT * FROM clientes', []);
   return res.rows;
 };
 
 // Função pra adicionar um cliente
 export const addCliente = async (cliente: { nome: string; email: string; telefone: string; }) => {
-  const res = await query('INSERT INTO clientes (nome, email, telefone) VALUES ($1, $2, $3) RETURNING *', [cliente.nome, cliente.email, cliente.telefone]);
+  const res = await db.query('INSERT INTO clientes (nome, email, telefone) VALUES ($1, $2, $3) RETURNING *', [cliente.nome, cliente.email, cliente.telefone]);
   return res.rows[0];
 };
 
 // Função para atualizar um cliente
 export const updateCliente = async (id: number, cliente: { nome?: string; email?: string; telefone?: string; }) => {
-  const res = await query(
+  const res = await db.query(
     'UPDATE clientes SET nome = COALESCE($1, nome), email = COALESCE($2, email), telefone = COALESCE($3, telefone) WHERE id = $4 RETURNING *',
     [cliente.nome, cliente.email, cliente.telefone, id]
   );
@@ -23,7 +24,7 @@ export const updateCliente = async (id: number, cliente: { nome?: string; email?
 
 // Função para deletar um cliente
 export const deleteCliente = async (id: number) => {
-  const res = await query('DELETE FROM clientes WHERE id = $1', [id]);
+  const res = await db.query('DELETE FROM clientes WHERE id = $1', [id]);
   return res.rows[0];
 };
 
@@ -50,6 +51,12 @@ export const getCliente = async (params: { id: number, nome: string, email: stri
   }
 
   const queryText = `SELECT * FROM clientes WHERE ${conditions.join(' OR ')}`;
-  const res = await query(queryText, values);
+  const res = await db.query(queryText, values);
+  return res.rows[0];
+};
+
+// Função para pegar um cliente por id
+export const getClientePorId = async (id: number) => {
+  const res = await db.query('SELECT * FROM clientes WHERE id = $1', [id]);
   return res.rows[0];
 };
