@@ -109,7 +109,7 @@ export const updateCliente = [
 export const deleteCliente = async (req: Request, res: Response) => {
   try {
     const id = parseInt(req.params.id);
-
+    console.log("ID:", id);
     // Primeiro, verifica se o cliente com o ID fornecido existe
     const clienteExistente = await ClienteModel.getClientePorId(id);
 

@@ -27,11 +27,23 @@ export const updateCliente = async (id: number, cliente: { nome?: string; email?
 
 // Função para deletar um cliente
 export const deleteCliente = async (id: number) => {
-  const res = await db.query('DELETE FROM clientes WHERE id = $1', [id]);
-  if (res.rowCount > 0) {
-    return { success: true, message: 'Cliente deletado com sucesso' };
-  } else {
-    return { success: false, message: 'Cliente não encontrado' };
+  try {
+    // Executando a query DELETE
+    const res = await db.query('DELETE FROM clientes WHERE id = $1', [id]);
+
+    // Adicionando log para depuração
+    console.log("Resposta da Query:", res);
+
+    // Verificando se 'res' e 'res.rowCount' não são undefined
+    if (res && res.rowCount > 0) {
+      return { success: true, message: 'Cliente deletado com sucesso' };
+    } else {
+      return { success: false, message: 'Cliente não encontrado' };
+    }
+  } catch (error) {
+    // Tratamento de erros de banco de dados
+    console.error("Erro ao executar a query DELETE:", error);
+    throw error; // Relançando o erro para ser tratado pelo controlador
   }
 };
 
@@ -65,7 +77,7 @@ export const getCliente = async (params: { id: number, nome: string, email: stri
 // Função para pegar um cliente por id
 export const getClientePorId = async (id: number) => {
   const res = await db.query('SELECT * FROM clientes WHERE id = $1', [id]);
-  return res.rows[0];
+  return res;
 };
 
 // Função para pegar rota de clientes
