@@ -65,6 +65,7 @@ export const addCliente = [
       const cliente = await ClienteModel.addCliente(req.body);
       res.status(201).json(cliente);
     } catch (error) {
+      console.error(error);
       if (error instanceof Error) {
         res.status(500).send(error.message);
       } else {

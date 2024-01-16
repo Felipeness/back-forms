@@ -4,16 +4,16 @@ import { db } from '../database/database';
 // Função pra pegar todos os clientes
 export const getAllClientes = async () => {
   const res = await db.query('SELECT * FROM clientes', []);
-  return res.rows;
+  return res;
 };
 
 // Função para adicionar um cliente, incluindo coordenadas X e Y
 export const addCliente = async (cliente: { nome: string; email: string; telefone: string; coordenadas_x: number; coordenadas_y: number; }) => {
   const res = await db.query(
-    'INSERT INTO clientes (nome, email, telefone, coordenadas_x, coordenadas_y) VALUES ($1, $2, $3, $4, $5) RETURNING *',
+    'INSERT INTO clientes (nome, email, telefone, coordenada_x, coordenada_y) VALUES ($1, $2, $3, $4, $5)',
     [cliente.nome, cliente.email, cliente.telefone, cliente.coordenadas_x, cliente.coordenadas_y]
   );
-  return res.rows[0];
+  return res;
 };
 
 // Função para atualizar um cliente
@@ -28,7 +28,11 @@ export const updateCliente = async (id: number, cliente: { nome?: string; email?
 // Função para deletar um cliente
 export const deleteCliente = async (id: number) => {
   const res = await db.query('DELETE FROM clientes WHERE id = $1', [id]);
-  return res.rows[0];
+  if (res.rowCount > 0) {
+    return { success: true, message: 'Cliente deletado com sucesso' };
+  } else {
+    return { success: false, message: 'Cliente não encontrado' };
+  }
 };
 
 // Função para pegar um cliente por id, nome , email ou telefone

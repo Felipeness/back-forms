@@ -1,0 +1,10 @@
+POST http://localhost:3000/clientes
+Content-Type: application/json
+
+{
+    "nome": "João",
+    "email": "joao@gmail.com",
+    "telefone": "1122334455",
+    "coordenadas_x": 10,
+    "coordenadas_y": 20
+}

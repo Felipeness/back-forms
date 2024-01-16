@@ -3,10 +3,17 @@ import clienteRoutes from './routes/clienteRoutes';
 import swaggerUi from 'swagger-ui-express';
 import 'dotenv/config';
 
+
 import swaggerDocs from './swagger.json';
+
+const cors = require('cors');
 
 const app = express();
 const port = process.env.PORT || 3000;
+
+app.use(cors({
+  origin: 'http://localhost:5173'
+}));
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs))
 
