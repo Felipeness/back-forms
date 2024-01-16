@@ -22,7 +22,7 @@ export const updateCliente = async (id: number, cliente: { nome?: string; email?
     'UPDATE clientes SET nome = COALESCE($1, nome), email = COALESCE($2, email), telefone = COALESCE($3, telefone) WHERE id = $4 RETURNING *',
     [cliente.nome, cliente.email, cliente.telefone, id]
   );
-  return res.rows[0];
+  return res;
 };
 
 // Função para deletar um cliente
