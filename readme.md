@@ -35,7 +35,7 @@ Para rodar o projeto localmente, siga estas etapas:
 1. **Clone o repositório:**
 
    ```bash
-   git clone https://github.com/Felipeness/teste-facilita-back.git
+   git clone https://github.com/Felipeness/back-forms.git
    cd nome-do-seu-projeto
    ```
 
@@ -49,6 +49,7 @@ npm install
 
 Crie um arquivo `.env` na raiz do projeto e configure as variáveis de ambiente necessárias (por exemplo, as credenciais do banco de dados).
 No caso atual, está sendo feita conexão fia URL diretamente no arquivo database.ts
+
 ## Execute o projeto
 
 - Em desenvolvimento:
