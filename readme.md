@@ -48,7 +48,7 @@ npm install
 ## Configure o ambiente
 
 Crie um arquivo `.env` na raiz do projeto e configure as variáveis de ambiente necessárias (por exemplo, as credenciais do banco de dados).
-
+No caso atual, está sendo feita conexão fia URL diretamente no arquivo database.ts
 ## Execute o projeto
 
 - Em desenvolvimento:
